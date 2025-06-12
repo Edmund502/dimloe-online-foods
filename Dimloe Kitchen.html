@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5" />
+<title>Dimloe Online Food</title>
+<style>
+  :root {
+    background: linear-gradient(to right,yellowgreen,indigo);
+    --color-primary: #111111;
+    --color-text: #6b7280;
+    --color-accent: #111;
+    --color-accent-light: #333;
+    --radius: 0.75rem;
+    --shadow-light: 0 2px 6px rgba(0,0,0,0.08);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+    --transition-speed: 0.3s;
+    --font-headline: 'Inter', 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-body: 'Inter', 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color var(--transition-speed);
+  }
+  a:hover,
+  a:focus {
+    color: var(--color-accent-light);
+    outline: none;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 192, 203, 0.363);
+    border-bottom: 0.3rem solid #ffffffb4;
+    z-index: 100;
+    box-shadow: var(--shadow-light);
+    border-radius: 30px;
+    border-style: none;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.5rem;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    font-family: kristen itc;
+    font-variant: small-caps;
+  }
+  nav ul {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  nav li {
+    font-weight: 500;
+  }
+  .btn-primary {
+    background: black;
+    color: #ffffffb6;
+    padding: 0.6rem 1.4rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    transition: background var(--transition-speed), transform var(--transition-speed);
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background: rgba(127, 255, 212, 0.452);
+    transform: scale(1.1);
+    outline: none;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+    color: black;
+    font-family: kristen itc;
+  }
+  .hero p {
+    font-size: 1.2rem;
+    color: black;
+    margin: 0 0 2rem;
+    font-weight: 500;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.562);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-light);
+    padding: 1.5rem;
+    display: grid;
+    flex-direction: column;
+    transition: background var(--transition-speed), transform var(--transition-speed);
+  }
+  .card:hover,
+  .card:focus-within {
+    box-shadow: var(--shadow-hover);
+    transform: scale(1.05);
+    transition: 0.4s ease-in-out;
+  }
+  .product-image {
+    width: 100%;
+    aspect-ratio: 3/3;
+    background: #cc11112c;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .product-name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-primary);
+    font-family: comic sans ms;
+  }
+  .product-desc {
+    font-size: 0.95rem;
+    color: black;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .product-price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+  .btn-add {
+    align-self: start;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background var(--transition-speed), transform var(--transition-speed);
+    border-style: none;
+  }
+  .btn-add:hover,
+  .btn-add:focus {
+    background: var(--color-accent-light);
+    transform: scale(1.03);
+    outline: none;
+    color: greenyellow;
+  }
+
+  /* Cart sidebar */
+  #cartSidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.384);
+    box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+    padding: 1.5rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform var(--transition-speed) ease-in-out;
+    z-index: 200;
+  }
+  #cartSidebar.open {
+    transform: translateX(0);
+  }
+  #cartSidebar h2 {
+    margin-top: 0;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-family: kristen itc;
+  }
+  #cartItems {
+    flex-grow: 0;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+  }
+  .cart-item-info {
+    flex-grow: 1;
+  }
+  .cart-item-name {
+    font-weight: 600;
+    color: black;
+    margin: 0 0 0.25rem 0;
+  }
+  .cart-item-qty {
+    font-size: 0.9rem;
+    color: black;
+    font-weight: 400;
+  }
+  .cart-item-price {
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 60px;
+    text-align: right;
+  }
+  .btn-remove {
+    background: transparent;
+    border: none;
+    color: #1c2cb9;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.2rem;
+    transition: color var(--transition-speed);
+  }
+  .btn-remove:hover,
+  .btn-remove:focus {
+    color: #7f1d1d;
+    outline: none;
+  }
+  #cartTotal {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-align: right;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+  .btn-checkout {
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.8rem 1.4rem;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    transition: background var(--transition-speed), transform var(--transition-speed);
+  }
+  .btn-checkout:hover,
+  .btn-checkout:focus {
+    background: var(--color-accent-light);
+    transform: scale(1.03);
+    outline: none;
+  }
+  #cartCloseBtn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color var(--transition-speed);
+  }
+  #cartCloseBtn:hover,
+  #cartCloseBtn:focus {
+    color: var(--color-accent-light);
+    outline: none;
+  }
+
+  /* Overlay for checkout form */
+  #checkoutOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.452);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 300;
+    padding: 1rem;
+  }
+  #checkoutOverlay.open {
+    display: flex;
+  }
+  #checkoutForm {
+    background: rgba(255, 255, 255, 0.897);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  #checkoutForm h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    text-align: center;
+    font-family: comic sans ms;
+  }
+  #checkoutForm label {
+    font-weight: 600;
+    color: black;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+  }
+  #checkoutForm input,
+  #checkoutForm select {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    border: 1px solid #d1d5db;
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+  }
+  #checkoutForm input:focus,
+  #checkoutForm select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 5px rgb(0, 255, 0);
+  }
+  #checkoutForm button {
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background var(--transition-speed), transform var(--transition-speed);
+  }
+  #checkoutForm button:hover,
+  #checkoutForm button:focus {
+    background: var(--color-accent-light);
+    transform: scale(1.03);
+    outline: none;
+  }
+  #checkoutCloseBtn {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color var(--transition-speed);
+  }
+  #checkoutCloseBtn:hover,
+  #checkoutCloseBtn:focus {
+    color: rgba(255, 255, 255, 0.37);
+    outline: none;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px) {
+    header .container {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 0.75rem 1rem;
+      row-gap: 0.75rem;
+    }
+    nav ul {
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #cartSidebar {
+      width: 100vw;
+      max-width: 360px;
+    }
+  }
+  .menu{
+    font-size: 50px;
+    font-family: kristen itc;
+    font-weight: 100;
+    font-variant: small-caps;
+  }
+
+  .copyright{
+    font-family: ebrima;
+    font-size: 1px;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    font-variant: small-caps;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="container" role="banner">
+    <a href="#" class="logo" aria-label="Canteen Online Shop Logo">Dimloe Kitchen</a>
+    <nav aria-label="Primary navigation">
+      <ul>
+        <li><a href="#products" tabindex="0">Login/Sign Up</a></li>
+        <li><button id="cartBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cartSidebar" class="btn-primary">Cart (0)</button></li>
+        <li><button id="cartBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="cartSidebar" class="btn-primary">Account</button></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">Delicious Food,Delivered Fast</h1>
+    <p>Order your favorite meals and drinks online. Freshness and convenience delivered right to you.</p>
+    <button id="heroOrderBtn" class="btn-primary" aria-label="Browse Products">Browse Product</a></button>
+  </section>
+
+  <section id="products" aria-labelledby="products-title">
+    <h2 id="products-title" style="text-align:center; font-weight:700; color:#000000; margin-bottom:2rem;" class="menu">Our Menu</h2>
+    <div class="products-grid" role="list" aria-live="polite" aria-relevant="additions">
+      <!-- Products inserted by JS -->
+    </div>
+  </section>
+</main>
+
+<!-- Cart Sidebar -->
+<aside id="cartSidebar" role="dialog" aria-modal="true" aria-labelledby="cartTitle" tabindex="-1">
+  <button id="cartCloseBtn" aria-label="Close Cart">&times;</button>
+  <h2 id="cartTitle">Your Cart</h2>
+  <div id="cartItems" role="list" tabindex="0" aria-live="polite" aria-relevant="removals additions">
+    <!-- Cart items inserted by JS-->
+  </div>
+  <div id="cartTotal" aria-live="polite" aria-atomic="true">Total: $0.00</div>
+  <button id="checkoutBtn" class="btn-checkout" disabled>Proceed Here</button>
+</aside>
+
+<!-- Checkout Overlay -->
+<div id="checkoutOverlay" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" tabindex="-1">
+  <form id="checkoutForm" novalidate>
+    <button id="checkoutCloseBtn" type="button" aria-label="Close Checkout Form">&times;</button>
+    <h3 id="checkoutTitle">Checkout</h3>
+    <label for="inputName">Full Name</label>
+    <input type="text" id="inputName" name="name" required aria-required="true" minlength="3" autocomplete="name" />
+    <label for="inputPhone">Phone Number</label>
+    <input type="tel" id="inputPhone" name="phone" required aria-required="true" pattern="^[0-9\s()+-]{6,20}$" aria-describedby="phoneHelp" autocomplete="tel" />
+    <small id="phoneHelp" style="color:#6b7280; margin-top:-0.75rem; margin-bottom:1rem; display:block; font-size:0.8rem;">Format: numbers, spaces, +, '', - allowed</small>
+    <label for="inputPayment">Payment Method</label>
+    <select id="inputPayment" name="payment" required aria-required="true">
+      <option value="" disabled selected>Select payment method</option>
+      <option value="cash">Cash on Delivery</option>
+      <option value="card">Card Payment</option>
+      <option value="upi">UPI Payment</option>
+      <option value="momo">Momo Wallet</option>
+      <option value="paypal">Paypal</option>
+    </select>
+    <button type="submit" class="btn-checkout" aria-label="Place Order">Place Order</button>
+  </form>
+</div>
+<footer class="copyright">
+   &copy; 2025 Dimloe Kitchen. All rights reserved.
+</footer>
+
+<script>
+  const products = [
+    {
+      id: 1,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      image: '🌯'
+    },
+    {
+      id: 2,
+      name: 'Chicken Wrap',
+      description: 'Grilled chicken wrap with lettuce and spicy sauce.',
+      price: 6.49,
+      imageText: '🌯'
+    },
+    {
+      id: 3,
+      name: 'Fresh Lemonade',
+      description: 'Refreshing homemade lemonade with mint.',
+      price: 2.99,
+      imageText: '🍋'
+    },
+    {
+      id: 4,
+      name: 'Coffee',
+      description: 'Hot brewed coffee with milk and sugar.',
+      price: 1.99,
+      imageText: '☕'
+    },
+    {
+      id: 5,
+      name: 'Chocolate Cake',
+      description: 'Rich chocolate cake slice, freshly baked.',
+      price: 3.99,
+      imageText: '🍰'
+    },
+    {
+      id: 6,
+      name: 'Fruit Salad',
+      description: 'Seasonal fresh fruit salad bowl.',
+      price: 3.49,
+      imageText: '🍎'
+    },
+    {
+      id: 7,
+      name: 'Beef Patela',
+      description: 'Freshly made patela with beef, lettuce, sliced meat, and cheese.',
+      price: 6.99,
+      imageText: '🥪'
+    },
+    {
+      id: 8,
+      name: 'Chicken Pizza',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 9,
+      name: 'Fish Nuggets',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 12.99,
+      imageText: '🥪'
+    },
+    {
+      id: 10,
+      name: 'Assorted Spaghetti',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 11.99,
+      imageText: '🥪'
+    },
+    {
+      id: 11,
+      name: 'Assorted Friedrice',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 17.99,
+      imageText: '🥪'
+    },
+    {
+      id: 12,
+      name: 'Spicy hot Kelewele',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 9.99,
+      imageText: '🥪'
+    },
+    {
+      id: 13,
+      name: 'Juicy Lobster',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 26.99,
+      imageText: '🥪'
+    },
+    {
+      id: 14,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 15,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 16,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 17,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 18,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 19,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 20,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+    {
+      id: 21,
+      name: 'Veggie Sandwich',
+      description: 'Freshly made sandwich with lettuce, tomato, cucumber, and cheese.',
+      price: 4.99,
+      imageText: '🥪'
+    },
+  ];
+
+  // State of cart products: map productId to {product, quantity}
+  const cart = new Map();
+
+  // DOM Elements
+  const productsGrid = document.querySelector('.products-grid');
+  const cartSidebar = document.getElementById('cartSidebar');
+  const cartBtn = document.getElementById('cartBtn');
+  const cartCloseBtn = document.getElementById('cartCloseBtn');
+  const cartItemsContainer = document.getElementById('cartItems');
+  const cartTotal = document.getElementById('cartTotal');
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  const checkoutOverlay = document.getElementById('checkoutOverlay');
+  const checkoutForm = document.getElementById('checkoutForm');
+  const checkoutCloseBtn = document.getElementById('checkoutCloseBtn');
+  const heroOrderBtn = document.getElementById('heroOrderBtn');
+
+  // Functions to format price
+  function formatPrice(price) {
+    return `$${price.toFixed(2)}`;
+  }
+
+  // Render products list dynamically
+  function renderProducts() {
+    productsGrid.innerHTML = '';
+    products.forEach(product => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.setAttribute('role','listitem');
+      card.tabIndex = 0;
+
+      const imageDiv = document.createElement('div');
+      imageDiv.className = 'product-image';
+      imageDiv.textContent = product.imageText;
+      card.appendChild(imageDiv);
+
+      const nameEl = document.createElement('h3');
+      nameEl.className = 'product-name';
+      nameEl.textContent = product.name;
+      card.appendChild(nameEl);
+
+      const descEl = document.createElement('p');
+      descEl.className = 'product-desc';
+      descEl.textContent = product.description;
+      card.appendChild(descEl);
+
+      const priceEl = document.createElement('div');
+      priceEl.className = 'product-price';
+      priceEl.textContent = formatPrice(product.price);
+      card.appendChild(priceEl);
+
+      const addBtn = document.createElement('button');
+      addBtn.className = 'btn-add';
+      addBtn.textContent = 'Add to Cart';
+      addBtn.setAttribute('aria-label', `Add ${product.name} to cart`);
+      addBtn.addEventListener('click', () => addToCart(product.id));
+      card.appendChild(addBtn);
+
+      productsGrid.appendChild(card);
+    });
+  }
+
+  // Add product to cart or increment quantity
+  function addToCart(productId) {
+    if (cart.has(productId)) {
+      const item = cart.get(productId);
+      item.quantity++;
+    } else {
+      const product = products.find(p => p.id === productId);
+      cart.set(productId, { product, quantity: 1 });
+    }
+    updateCartDisplay();
+    announceCartCount();
+  }
+
+  // Remove one unit or remove product from cart
+  function removeFromCart(productId) {
+    if (!cart.has(productId)) return;
+    const item = cart.get(productId);
+    if (item.quantity > 1) {
+      item.quantity--;
+    } else {
+      cart.delete(productId);
+    }
+    updateCartDisplay();
+    announceCartCount();
+  }
+
+  // Update cart item count in header button
+  function getCartCount() {
+    let count = 0;
+    cart.forEach(item => {
+      count += item.quantity;
+    });
+    return count;
+  }
+
+  // Update cart sidebar content and total price
+  function updateCartDisplay() {
+    cartItemsContainer.innerHTML = '';
+    if (cart.size === 0) {
+      const emptyMsg = document.createElement('p');
+      emptyMsg.textContent = 'Your cart is empty.';
+      emptyMsg.style.color = '#9ca3af';
+      cartItemsContainer.appendChild(emptyMsg);
+      checkoutBtn.disabled = true;
+      cartBtn.textContent = 'Cart (0)';
+      return;
+    }
+    let total = 0;
+    cart.forEach(({ product, quantity }) => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
+
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'cart-item-info';
+
+      const nameEl = document.createElement('p');
+      nameEl.className = 'cart-item-name';
+      nameEl.textContent = product.name;
+      infoDiv.appendChild(nameEl);
+
+      const qtyEl = document.createElement('p');
+      qtyEl.className = 'cart-item-qty';
+      qtyEl.textContent = `Qty: ${quantity}`;
+      infoDiv.appendChild(qtyEl);
+
+      itemDiv.appendChild(infoDiv);
+
+      const priceEl = document.createElement('p');
+      priceEl.className = 'cart-item-price';
+      priceEl.textContent = formatPrice(product.price * quantity);
+      itemDiv.appendChild(priceEl);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.className = 'btn-remove';
+      removeBtn.setAttribute('aria-label', `Remove one ${product.name} from cart`);
+      removeBtn.textContent = '×';
+      removeBtn.addEventListener('click', () => removeFromCart(product.id));
+      itemDiv.appendChild(removeBtn);
+
+      cartItemsContainer.appendChild(itemDiv);
+
+      total += product.price * quantity;
+    });
+    cartTotal.textContent = `Total: ${formatPrice(total)}`;
+    checkoutBtn.disabled = false;
+    cartBtn.textContent = `Cart (${getCartCount()})`;
+  }
+
+  // Announce cart count for screen readers
+  function announceCartCount() {
+    cartBtn.setAttribute('aria-label', `Cart with ${getCartCount()} items`);
+  }
+
+  // Open / Close cart sidebar
+  function openCart() {
+    cartSidebar.classList.add('open');
+    cartBtn.setAttribute('aria-expanded', 'true');
+    cartSidebar.focus();
+  }
+  function closeCart() {
+    cartSidebar.classList.remove('open');
+    cartBtn.setAttribute('aria-expanded', 'false');
+    cartBtn.focus();
+  }
+
+  // Open / Close checkout overlay
+  function openCheckout() {
+    checkoutOverlay.classList.add('open');
+    checkoutOverlay.focus();
+    // Reset form fields
+    checkoutForm.reset();
+  }
+  function closeCheckout() {
+    checkoutOverlay.classList.remove('open');
+    // Return focus to checkout button in cart sidebar
+    checkoutBtn.focus();
+  }
+
+  // Handle form submission
+  function handleCheckoutSubmit(event) {
+    event.preventDefault();
+    if (!checkoutForm.checkValidity()) {
+      checkoutForm.reportValidity();
+      return;
+    }
+    // Simple alert simulation of order confirmation
+    alert(
+      `Thank you, ${checkoutForm.name.value}! Your order has been placed.\n` +
+      `We will contact you at ${checkoutForm.phone.value}. Payment: ${checkoutForm.payment.value}`
+    );
+    // Clear cart and close overlays
+    cart.clear();
+    updateCartDisplay();
+    closeCheckout();
+    closeCart();
+  }
+
+  // Event listeners
+  cartBtn.addEventListener('click', openCart);
+  cartCloseBtn.addEventListener('click', closeCart);
+  checkoutBtn.addEventListener('click', openCheckout);
+  checkoutCloseBtn.addEventListener('click', closeCheckout);
+  checkoutForm.addEventListener('submit', handleCheckoutSubmit);
+  heroOrderBtn.addEventListener('click', () => {
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Keyboard accessibility for overlays - close with Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (checkoutOverlay.classList.contains('open')) {
+        closeCheckout();
+      } else if (cartSidebar.classList.contains('open')) {
+        closeCart();
+      }
+    }
+  });
+
+  // Initialize the app
+  renderProducts();
+  updateCartDisplay();
+</script>
+</body>
+</html>
+
